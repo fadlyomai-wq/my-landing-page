@@ -3,23 +3,23 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Aplikasi Landing Page & Dashboard Admin</title>
+    <title>Landing Page & Dashboard Pengaturan</title>
     <style>
         body { font-family: Arial, sans-serif; margin: 0; padding: 20px; background-color: #f4f4f9; color: #333; }
         .container { max-width: 600px; margin: auto; background: white; padding: 25px; border-radius: 8px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); }
         .form-group { margin-bottom: 15px; }
         label { display: block; margin-bottom: 5px; font-weight: bold; }
         input, select { width: 100%; padding: 10px; box-sizing: border-box; border: 1px solid #ccc; border-radius: 4px; }
-        button { background-color: #28a745; color: white; padding: 10px 15px; border: none; border-radius: 4px; cursor: pointer; width: 100%; font-size: 16px; }
-        button:hover { background-color: #218838; }
+        button { background-color: #007bff; color: white; padding: 10px 15px; border: none; border-radius: 4px; cursor: pointer; width: 100%; font-size: 16px; }
+        button:hover { background-color: #0056b3; }
+        button.btn-save { background-color: #28a745; }
+        button.btn-save:hover { background-color: #218838; }
         button.btn-logout { background-color: #dc3545; margin-top: 20px; }
         button.btn-logout:hover { background-color: #c82333; }
-        .pesan { margin-top: 15px; padding: 10px; display: none; border-radius: 4px; font-weight: bold; }
+        .pesan { margin-top: 15px; padding: 10px; display: none; border-radius: 4px; font-weight: bold; text-align: center; }
         .sukses { background-color: #d4edda; color: #155724; }
         .gagal { background-color: #f8d7da; color: #721c24; }
-        .info-box { background-color: #e2e3e5; padding: 10px; border-radius: 4px; margin-bottom: 20px; }
-        
-        /* Mengatur tampilan halaman */
+        .info-box { background-color: #e2e3e5; padding: 15px; border-radius: 4px; margin-bottom: 20px; }
         #halamanDashboard { display: none; }
     </style>
 </head>
@@ -30,8 +30,8 @@
     <!-- TAMPILAN 1: LANDING PAGE & LOGIN -->
     <div id="halamanLogin">
         <div style="text-align: center; margin-bottom: 30px;">
-            <h1>Selamat Datang di Landing Page</h1>
-            <p>Silakan masuk menggunakan akun admin utama Anda untuk mengakses fitur pengaturan.</p>
+            <h1>Selamat Datang</h1>
+            <p>Silakan login untuk masuk ke menu pengaturan akun.</p>
         </div>
         
         <h2>Form Login</h2>
@@ -44,38 +44,36 @@
                 <label for="loginPass">Password</label>
                 <input type="password" id="loginPass" placeholder="Masukkan password (ex: admin123)" required>
             </div>
-            <button type="submit" style="background-color: #007bff;">Masuk Sistem</button>
+            <button type="submit">Masuk Sistem</button>
         </form>
     </div>
 
-    <!-- TAMPILAN 2: DASHBOARD & PENGATURAN AKUN (HANYA MUNCUL SETELAH LOGIN) -->
+    <!-- TAMPILAN 2: DASHBOARD (SETELAH BERHASIL LOGIN) -->
     <div id="halamanDashboard">
         <div class="info-box">
-            <h3>Halo, <span id="namaUser"></span>!</h3>
-            <p>Masing-masing hak akses Anda saat ini adalah: <strong><span id="roleUser"></span></strong></p>
+            <h3>Selamat Datang, <span id="namaUser"></span>!</h3>
+            <p>Role Anda saat ini: <strong style="color: #007bff;"><span id="roleUser"></span></strong></p>
         </div>
 
-        <h2>Menu Pengaturan: Tambah Akun Baru</h2>
-        <p style="color: #666; font-size: 14px;">Sebagai Admin, Anda berhak membuat kredensial akun baru untuk staff/user lain.</p>
-        
+        <h2>Pengaturan: Tambah Akun Baru</h2>
         <form id="formTambahAkun">
             <div class="form-group">
                 <label for="newUsername">Username Baru</label>
-                <input type="text" id="newUsername" placeholder="Contoh: editor_joko" required>
+                <input type="text" id="newUsername" placeholder="Contoh: editor_budi" required>
             </div>
             <div class="form-group">
-                <label for="newPassword">Password Akun</label>
-                <input type="password" id="newPassword" placeholder="Buat password kuat" required>
+                <label for="newPassword">Password Kredensial</label>
+                <input type="password" id="newPassword" placeholder="Buat password unik" required>
             </div>
             <div class="form-group">
-                <label for="newRole">Role / Tingkat Otoritas</label>
+                <label for="newRole">Role Akun</label>
                 <select id="newRole">
-                    <option value="Admin">Admin (Akses Penuh)</option>
-                    <option value="Editor">Editor (Ubah Data)</option>
-                    <option value="Viewer">Viewer (Hanya Lihat)</option>
+                    <option value="Admin">Admin</option>
+                    <option value="Editor">Editor</option>
+                    <option value="Viewer">Viewer</option>
                 </select>
             </div>
-            <button type="submit">Daftarkan Akun</button>
+            <button type="submit" class="btn-save">Daftarkan Akun Baru</button>
         </form>
 
         <button onclick="logout()" class="btn-logout">Keluar Aplikasi</button>
@@ -87,10 +85,9 @@
 
 <script>
     // =========================================================================
-    // KONFIGURASI PERMANEN BACKEND
-    // Ganti teks di bawah ini dengan URL Web App Google Apps Script Anda yang asli
+    // PASTE URL WEB APP GOOGLE APPS SCRIPT ANDA DI BAWAH INI
     // =========================================================================
-    const WEB_APP_URL = "https://script.google.com/macros/s/AKfycbwuzvO-Y_Yih0qa4e6SGHvTK4zyWJCELJXdqwql-pfWqwpGA82ybzdc06hbshh8Z6L3/exec";
+    const WEB_APP_URL = "https://google.com";
     
     const kotakPesan = document.getElementById('kotakPesan');
 
@@ -100,32 +97,29 @@
         kotakPesan.innerText = teks;
     }
 
-    // PROSES LOGIN
+    // PROSES LOGIN (Memakai metode GET untuk menghindari CORS issue)
     document.getElementById('formLogin').addEventListener('submit', function(e) {
         e.preventDefault();
         
-        if (WEB_APP_URL.includes("PASTE_URL_WEB_APP_ANDA_DISINI")) {
-            return alert("PENTING: Harap ganti teks WEB_APP_URL di dalam kode index.html dengan URL Google Apps Script Anda yang valid!");
+        if (WEB_APP_URL.includes("https://script.google.com/macros/s/AKfycbw2wM4grBSHtC6WkX5B6YEe7_PYIQ5ScH9w3xAgV_3rg9feIHlFA8zXXsFmlfQNROOp/exec")) {
+            return alert("PENTING: Ganti nilai WEB_APP_URL di index.html dengan URL Web App Anda!");
         }
 
         tampilPesan('Sedang memverifikasi...', 'sukses');
 
-        const payload = {
-            action: "cekLogin",
-            username: document.getElementById('loginUser').value,
-            password: document.getElementById('loginPass').value
-        };
+        const u = document.getElementById('loginUser').value;
+        const p = document.getElementById('loginPass').value;
 
-        fetch(WEB_APP_URL, {
-            method: 'POST',
-            body: JSON.stringify(payload)
-        })
+        // Tembak URL dengan query string agar terbaca oleh doGet()
+        const urlPenuh = `${WEB_APP_URL}?action=cekLogin&username=${encodeURIComponent(u)}&password=${encodeURIComponent(p)}`;
+
+        fetch(urlPenuh)
         .then(res => res.json())
         .then(data => {
             if(data.status === "success") {
                 tampilPesan('Login Berhasil!', 'sukses');
                 
-                // Pindah Halaman & Isi Data Profile
+                // Switch Halaman & Set Profil
                 document.getElementById('halamanLogin').style.display = 'none';
                 document.getElementById('halamanDashboard').style.display = 'block';
                 document.getElementById('namaUser').innerText = data.username;
@@ -137,14 +131,15 @@
                 tampilPesan(data.message, 'gagal');
             }
         })
-        .catch(err => tampilPesan('Koneksi Gagal atau URL GAS Salah!', 'gagal'));
+        .catch(err => {
+            tampilPesan('Gagal terhubung! Periksa kembali URL Web App atau koneksi Anda.', 'gagal');
+        });
     });
 
-    // PROSES TAMBAH AKUN DI DALAM DASHBOARD
+    // PROSES TAMBAH AKUN DI DASHBOARD
     document.getElementById('formTambahAkun').addEventListener('submit', function(e) {
         e.preventDefault();
-
-        tampilPesan('Sedang mendaftarkan akun baru...', 'sukses');
+        tampilPesan('Mendaftarkan akun ke Firebase...', 'sukses');
 
         const payload = {
             action: "tambahAkun",
@@ -153,20 +148,18 @@
             role: document.getElementById('newRole').value
         };
 
+        // Post data akun baru menggunakan no-cors karena skema penyimpanan satu arah
         fetch(WEB_APP_URL, {
             method: 'POST',
+            mode: 'no-cors',
             body: JSON.stringify(payload)
         })
-        .then(res => res.json())
-        .then(data => {
-            if(data.status === "success") {
-                tampilPesan(data.message, 'sukses');
-                document.getElementById('formTambahAkun').reset();
-            } else {
-                tampilPesan(data.message, 'gagal');
-            }
+        .then(() => {
+            tampilPesan('Akun baru berhasil dikirim dan diproses!', 'sukses');
+            document.getElementById('formTambahAkun').reset();
+            setTimeout(() => { kotakPesan.style.display = 'none'; }, 3000);
         })
-        .catch(err => tampilPesan('Gagal memproses ke database.', 'gagal'));
+        .catch(err => tampilPesan('Terjadi gangguan saat menyimpan data.', 'gagal'));
     });
 
     // PROSES LOGOUT
